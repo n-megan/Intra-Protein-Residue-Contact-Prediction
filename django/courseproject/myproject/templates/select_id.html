@@ -1,0 +1,76 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<a href="{% url 'view_user_input' %}">BACK TO SEARCH</a>
+{% if uniprot_ids %}
+    {% if messages %}
+        <div class="alert-messages">
+            {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+  <h4>Please select a UniProt ID:</h4>
+  <div class="protein-list">
+    {% for uniprot_id in uniprot_ids %}
+      <div class="protein-item">
+        <button class="show-info-btn" data-uniprot-id="{{ uniprot_id }}">{{ uniprot_id }}</button>
+        <button id="select-{{ uniprot_id }}" class="select-protein-btn" style="display:none;" 
+        data-uniprot-id="{{ uniprot_id }}" onclick="selectProtein('{{ uniprot_id }}')">GO</button>
+        <div id="info-{{ uniprot_id }}" class="protein-info" style="display:none;"></div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No UniProt IDs available.</p>
+{% endif %}
+
+<!-- Referenced https://medium.com/@dillonf2/creating-a-very-simple-button-in-javascript-51b870133bc6 -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const buttons = document.querySelectorAll('.show-info-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const uniprotId = this.getAttribute('data-uniprot-id');
+                const infoDiv = document.getElementById('info-' + uniprotId);
+                const selectBtn = document.getElementById('select-' + uniprotId);
+                if (infoDiv.style.display === 'none' || infoDiv.style.display === '') {
+                    fetch(`/get_protein_info_ajax/${uniprotId}/`)  
+                        .then(response => response.json())
+                        .then(data => {
+                            const infoDiv = document.getElementById('info-' + uniprotId);
+                            if (data.error) {
+                                infoDiv.innerHTML = '<p style="color: red;">' + data.error + '</p>';
+                            } else {
+                                let proteinHtml = '<table class="info-table">';
+                                for (const key in data) {
+                                    if (key == 'Sequence') {
+                                        proteinHtml += `<tr class="info-row">
+                                            <td class="seq-key">${key}</td>
+                                            <td><div class="sequence">${data[key]}</div></td></tr>`;
+                                    } else {
+                                        proteinHtml += `<tr class="info-row">
+                                            <td class="key">${key}</td>
+                                            <td>${data[key]}</td></tr>`;
+                                    }
+                                }    
+                                proteinHtml += '</table>';
+                                infoDiv.innerHTML = proteinHtml;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching protein data:', error);
+                            infoDiv.innerHTML = '<p style="color: red;">Error loading protein data.</p>';
+                        });
+                    infoDiv.style.display = 'block';
+                    selectBtn.style.display = 'inline-block';
+                } else {
+                    infoDiv.style.display = 'none';
+                    selectBtn.style.display = 'none';
+                }
+            });
+        });
+    });  
+    function selectProtein(uniprotId) {
+        window.location.href = `/results/${uniprotId}/`;
+    }
+</script>

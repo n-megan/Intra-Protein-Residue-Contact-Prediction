@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <a href="{% url 'view_user_input' %}">BACK TO SEARCH</a>
+    {% if messages %}
+    <div class="alert-messages">
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}    
+    <div class="container">
+        <h1>Results for {{ protein_id }}</h1>
+        <div>
+        {% if protein_info %}   
+            <h2>Protein Details</h2>
+            <table class="protein-data">
+                {% for key, value in protein_info.items %}
+                    <tr>
+                    {% if key == 'Sequence' %}              
+                        <td class="seq-key">{{ key }}</td>
+                        <td><div class="sequence">{{ value }}</div></td>    
+                    {% else %}
+                        <td class="key">{{ key }}</td>
+                        <td>{{ value }}</td>
+                    {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No protein information found.</p>
+        {% endif %}
+        </div>
+        {% if ca_contact_data %}
+        <h2>Residue Interaction Details</h2>
+        {% if residue_data %}
+            <h4>Chain ID: {{ residue_data.0.chain_id }}</h4>
+        {% endif %}
+        <h4>Alpha-carbon (Cα) Residue Contacts</h4>
+        <div class="ca-contact-section">        
+            <table class="ca-table">
+                <thead>
+                    <tr>
+                        <th class="res1-name-col">Residue 1</th>
+                        <th class="res1-pos-col">Position</th>
+                        <th class="res1-coord-col">Coordinates</th>
+                        <th class="res2-name-col">Residue 2</th>
+                        <th class="res2-pos-col">Position</th>
+                        <th class="res2-coord-col">Coordinates</th>
+                        <th class="distance-col">Distance (Å)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in cb_contact_data %}
+                    <tr>
+                        <td class="res1-name-col">{{ contact.res1_full_name }}</td>
+                        <td class="res1-pos-col">{{ contact.res1_pos }}</td>
+                        <td class="res1-coord-col">{{ contact.res1_coord1|join:", " }}</td> 
+                        <td class="res2-name-col">{{ contact.res2_full_name }}</td>
+                        <td class="res2-pos-col">{{ contact.res2_pos }}</td>
+                        <td class="res2-coord-col">{{ contact.res2_coord2|join:", " }}</td>
+                        <td class="distance-col">{{ contact.distance }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class ="ca-contact-map">
+            <img src="{% static ca_contact_map_path %}" alt="Contact Map">
+        </div>
+        {% endif %}
+        {% if cb_contact_data %}
+        <h4>Beta-carbon (Cβ) Residue Contacts</h4>
+        <div class="cb-contact-section">
+            <table class="cb-table">
+                <thead>
+                    <tr>
+                        <th class="res1-name-col">Residue 1</th>
+                        <th class="res1-pos-col">Position</th>
+                        <th class="res1-coord-col">Coordinates</th>
+                        <th class="res2-name-col">Residue 2</th>
+                        <th class="res2-pos-col">Position</th>
+                        <th class="res2-coord-col">Coordinates</th>
+                        <th class="distance-col">Distance (Å)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in cb_contact_data %}
+                    <tr>
+                        <td class="res1-name-col">{{ contact.res1_full_name }}</td>
+                        <td class="res1-pos-col">{{ contact.res1_pos }}</td>
+                        <td class="res1-coord-col">{{ contact.res1_coord1|join:", " }}</td> 
+                        <td class="res2-name-col">{{ contact.res2_full_name }}</td>
+                        <td class="res2-pos-col">{{ contact.res2_pos }}</td>
+                        <td class="res2-coord-col">{{ contact.res2_coord2|join:", " }}</td>
+                        <td class="distance-col">{{ contact.distance }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class ="cb-contact-map">
+            <img src="{% static cb_contact_map_path %}" alt="Contact Map">
+        </div>
+        {% endif %}
+</body>
+</html>

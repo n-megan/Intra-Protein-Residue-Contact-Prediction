@@ -1,0 +1,236 @@
+body {
+    font-family: Lato, proxima-nova, Helvetica Neue, Arial, sans-serif;
+    background-color: #e7f6ff;
+    margin-top: 5em;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+label {
+    font-size: 18px;
+    text-align: left;
+}
+
+.alert-messages {
+    margin: 20px 0;
+    padding: 10px;
+    text-align: center;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.alert-danger {
+    background-color: #f8d7da; 
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert-messages .alert {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.background {
+    display: flex;
+    justify-content: space-between;
+}
+
+.paragraph {
+    width: 48%;
+    line-height: 20px;
+    padding: 50px 50px;
+    text-align: left;
+}
+
+.footer-note {
+    position: fixed;
+    text-align: left;    
+    bottom: 0px; 
+    font-size: 13px;
+    font-style: italic;
+}
+
+form {
+    margin-top: 0em;
+    margin-bottom: 1em;
+    margin-left: 25em;
+    margin-right: 0;
+    padding: 5px;
+}
+
+input#protein_id {
+    width: 31%;
+    padding: 1px;
+    font-size: 18px;
+    margin-left: 1em;
+}
+
+input[type="submit"] {
+    background-color: #a5e797;
+    border: 1px solid #04AA6D;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 5px 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.protein-data {
+    width: 100%;
+    box-shadow: 2px 2px 4px #000000;
+}
+
+table, th, td {
+    width: 880px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+.info-table {
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 4px #000000;
+    border-collapse: collapse;
+    padding: 2px;
+    
+}
+
+.sequence {
+    width: 95em;
+    height: 95px;
+    line-height: 1em;
+    overflow: scroll;
+    word-wrap: break-word;
+    background-color: #f2faff;
+}
+
+.key, .seq-key {
+    font-weight: bold;
+    width: 20em;
+}
+
+.res1-coord-col, .res2-coord-col {
+    text-align: center;
+    width: 60px;
+}
+
+.res1-name-col, .res2-name-col {
+    text-align: center;
+    width: 20px;
+}
+
+.res1-pos-col, .res2-pos-col {
+    text-align: center;
+    width: 20px;
+}
+
+.distance-col {
+    text-align: center;
+    width: 20px;
+}
+
+.container {
+    width: auto;
+    font-size: 14px;
+}
+
+.ca-contact-section {
+    float: left;
+    margin-right: 6em;
+    width: auto;
+    height: 365px;
+    font-size: 14px;
+    line-height: 1em;
+    overflow: scroll;
+    word-wrap: break-word;
+    background-color: #ffffff;
+}
+
+.ca-table {
+    width: 900px;
+}
+
+.ca_contact_map {
+    float: right;
+}
+
+.cb-contact-section {   
+    float: left;
+    margin-right: 6em;
+    width: auto;
+    height: 365px;
+    font-size: 14px;
+    line-height: 1em;
+    overflow: scroll;
+    word-wrap: break-word;
+    background-color: #ffffff;
+}
+
+.cb-table {
+    width: 900px;
+}
+
+.cb_contact_map {
+    float: right;
+}
+
+a:link, a:visited {
+    background-color: #e6eaff;
+    color: #000000;
+    border: 1px solid #4d60aa;
+    border-radius: 10px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+}
+  
+a:hover, a:active {
+    background-color: #4d60aa;
+    color: white;
+}
+
+.show-info-btn {
+    width: 5%;
+    padding: 5px 5px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.select-protein-btn {
+    background-color: #a5e797;
+    border: 1px solid #04AA6D;
+    border-radius: 10px;
+    padding: 5px 5px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.select-protein-btn:hover {
+    background-color: #04AA6D;
+    color: white;
+}

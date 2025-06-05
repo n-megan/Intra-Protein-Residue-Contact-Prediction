@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residue-Residue Interactions</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Predict Residue-Residue Interactions Tool</h1>
+    {% if messages %}
+    <div class="alert-messages">
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="protein_id">Enter a UniProt or PDB ID:</label>
+        <input type="text" name="protein_id" id="protein_id" placeholder="e.g. O75626, p41595, 3DAL, 1d8d" required>
+        <input type="submit" value="SUBMIT">
+    </form>
+    <div class="background">
+        <div class="paragraph">
+            <p>
+                <b>Background:</b>
+                <br>
+                Residue-residue interactions can be inferred via distance-based residue contacts. 
+                <br><br>A residue is considered in contact with another if the Euclidean distance between their atoms is within a defined threshold, based on the 3D structure of the protein (expressed as the x, y, and z coordinates of the amino acids' atoms). 
+                <br><br>This tool determines contacts based on the <b>alpha-carbon (Cα)</b> and <b>beta-carbon (Cβ)</b> atoms of different residues, where the distance cutoff is 5 Å.
+            </p> 
+        </div>
+        <div class="paragraph">
+            <p>
+                <b>User Guide:</b>
+                <br>
+                (1) Enter a UniProt or PDB ID. If you enter a PDB ID, you may be asked to select a UniProt ID. A short description will be displayed before UniProt ID selection.
+                <br><br>
+                (2) The predicted residue-residue interactions for alpha-carbon and alpha-beta atoms of residues will be displayed. 
+                <br><br>
+                (3) A contact map is included to help visualize the distance between residue pairs of the 3D protein structure.
+            </p> 
+        </div>
+    </div>
+    
+    <p class="footer-note">Protein information is retrieved from AlphaFold and UniProt.
+        <br>For issues or inquiries, contact <u>mnguye87@jhu.edu</u>
+    </p>
+</body>
+</html>
