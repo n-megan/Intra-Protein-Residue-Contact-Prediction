@@ -5,3 +5,5 @@ The objective of this system is to store information about the residues of a pro
 residue-residue interactions by calculating residue contacts based on spatial distance.
 Specifically, the contacts are determined by using the alpha-carbon atoms and beta-carbon
 atoms of different residues (inter-residue contacts).
+
+The project report documents the complete workflow, including a brief description of errors encountered during the process.
